@@ -26,7 +26,7 @@ public class Commands {
      * @throws IOException if any of the filenames used in the expression can't be read as images
      */
     public static String size(Expression expression) throws IOException {
-        throw new RuntimeException("unimplemented");
+        return expression.getWidth() + "x" + expression.getHeight();
     }
     
     /**

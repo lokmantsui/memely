@@ -17,15 +17,15 @@ import edu.mit.eecs.parserlib.Parser;
 public class HstackTest {
 
     // Testing strategy
-    // constructor:
-    // getRight:
-    // getLeft:
-    // toString:
-    // equals:
+    // Hstack():
+    // getRight():
+    // getLeft():
+    // toString():
+    // equals():
     //  partition on that not an instance of Hstack
     //               that is instance of Hstack with different left or different right
     //               that is instance of Hstack with same left and same right
-    // hashCode:
+    // hashCode():
 
     
     @Test

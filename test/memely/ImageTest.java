@@ -17,14 +17,14 @@ import edu.mit.eecs.parserlib.Parser;
 public class ImageTest {
 
     // Testing strategy
-    // constructor:
-    // getFilename:
-    // toString:
-    // equals:
+    // Image():
+    // getFilename():
+    // toString():
+    // equals():
     //  partition on that not an instance of Image
     //               that is instance of Image with different filename
     //               that is instance of Image with same filename
-    // hashCode:
+    // hashCode():
     
     @Test
     public void testAssertionsEnabled() {

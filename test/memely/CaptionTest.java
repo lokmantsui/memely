@@ -17,13 +17,13 @@ import edu.mit.eecs.parserlib.Parser;
 public class CaptionTest {
 
     // Testing strategy
-    // constructor:
-    // getCaption:
-    // toString:
-    // equals:
+    // Caption():
+    // getCaption():
+    // toString():
+    // equals():
     //  partition on same Caption
     //               different Caption
-    // hashCode:
+    // hashCode():
     
     @Test
     public void testCaption() {

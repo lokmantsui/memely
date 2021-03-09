@@ -18,14 +18,14 @@ import edu.mit.eecs.parserlib.Parser;
 public class ResizeTest {
 
     // Testing strategy
-    // constructor:
-    // getExpression:
-    // toString:
-    // equals:
+    // Resize():
+    // getExpression():
+    // toString():
+    // equals():
     //   partition on that equals this, that not equals this
-    // hashCode:
-    // getWidth:
-    // getHeight:
+    // hashCode():
+    // getWidth():
+    // getHeight():
     
     @Test
     public void testAssertionsEnabled() {
@@ -40,12 +40,12 @@ public class ResizeTest {
     }
     
     // constructor:
-    // getExpression: covered
-    // toString: covered
-    // equals: covered that equals this, that not equals this
-    // hashCode: covered
-    // getWidth: covered
-    // getHeight: covered
+    // getExpression(): covered
+    // toString(): covered
+    // equals(): covered that equals this, that not equals this
+    // hashCode(): covered
+    // getWidth(): covered
+    // getHeight(): covered
     @Test
     public void testResize() {
         Image img = new Image("img/black.png");

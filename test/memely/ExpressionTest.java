@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import edu.mit.eecs.parserlib.Parser;
+import java.util.List;
 
 /**
  * Tests for the Expression abstract data type.
@@ -17,7 +18,8 @@ import edu.mit.eecs.parserlib.Parser;
 public class ExpressionTest {
 
     // Testing strategy
-    // parse:
+    // parse(): 
+    //   partition on Expression: Image, Caption, Hstack, Resize
     
     @Test
     public void testAssertionsEnabled() {
@@ -31,16 +33,18 @@ public class ExpressionTest {
                 Parser.VERSION, startsWith("3.2"));
     }
     
-    // parse: covered
+    // parse(): covered Image, Caption, Hstack, Resize
     @Test
     public void testtoStringParse() {
-        Expression img1 = new Image("img/black.png");
-        assertEquals(img1,Expression.parse(img1.toString()));
-        Expression img2 = new Image("img/white.png");
+        Image img1 = new Image("img/black.png");
+        Caption caption = new Caption("Hello there");
+        Image img2 = new Image("img/white.png");
         Hstack hs = new Hstack(img1,img2);
-        assertEquals(hs,Expression.parse(hs.toString()));
         Resize rz = new Resize(hs,100,200);
-        assertEquals(rz,Expression.parse(rz.toString()));
+        List<Expression> l = List.of(img1,caption,hs,rz);
+        for (Expression e: l) {
+            assertEquals(e,Expression.parse(e.toString()),"invalid parse for"+e.toString());
+        }
     }
     
 }

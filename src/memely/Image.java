@@ -19,11 +19,7 @@ public class Image implements Expression {
     }
     
     private void checkRep() {
-        assert filename.matches("[\\w-. /]*");
-        if (filename.length()>0) {
-            assert filename.charAt(0)!='-';
-            assert filename.charAt(0)!='_';
-        }
+        assert filename.matches("[A-Za-z0-9./][A-Za-z0-9./_-]*");
     }
     
     public String getFilename() {

@@ -18,6 +18,7 @@ public interface Expression {
     
     // Datatype definition
     //   Expression = Image(filename:String)
+    //                + Caption(capt:String)
     //                + Hstack(left:Expression, right:Expression)
     //                + Vstack(top:Expression, bottom:Expression)
     //                + Resize(expr:Expression, w:int, h:int)

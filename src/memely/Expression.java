@@ -3,6 +3,9 @@
  */
 package memely;
 
+import java.awt.Dimension;
+import java.awt.image.BufferedImage;
+
 /**
  * An immutable data type representing an image expression, as defined
  * in the PS3 handout.
@@ -15,7 +18,12 @@ package memely;
 public interface Expression {
     
     // Datatype definition
-    //   TODO
+    //   Expression = Image(filename:String)
+    //                + Hstack(left:Expression, right:Expression)
+    //                + Vstack(top:Expression, bottom:Expression)
+    //                + Resize(expr:Expression, size:Dimension)
+    //                + TopOverlay(expr:Expression, text:String)
+    //                + BottomOverlay(expr:Expression, text:String)
     
     /**
      * Parse an expression.
@@ -50,9 +58,29 @@ public interface Expression {
     @Override
     public int hashCode();
     
-    // TODO more instance methods, e.g. you might consider:
+    // more instance methods, e.g. you might consider:
     //
     // public Dimension getSize(); or public int getWidth()/getHeight();
     // public BufferedImage image(); 
+    
+    /** 
+     * @return the image size of the Expression
+     */
+    public Dimension getSize();
+    
+    /** 
+     * @return the image width of the Expression, i.e. the number of pixels in the horizontal direction
+     */
+    public int getWidth();
+    
+    /** 
+     * @return the height of the Expression, i.e. the number of pixels in the vertical direction
+     */
+    public int getHeight();
+    
+    /** 
+     * @return the image of the Expression
+     */
+    public BufferedImage image();
     
 }

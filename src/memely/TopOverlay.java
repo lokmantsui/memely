@@ -19,10 +19,6 @@ public class TopOverlay implements Expression {
         throw new RuntimeException("unimplemented");
         }
 
-    public Dimension getSize(){
-        throw new RuntimeException("unimplemented");
-        }
-
     public int getWidth(){
         throw new RuntimeException("unimplemented");
         }

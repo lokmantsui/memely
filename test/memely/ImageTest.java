@@ -14,10 +14,17 @@ import edu.mit.eecs.parserlib.Parser;
 /**
  * Tests for the Expression abstract data type.
  */
-public class ExpressionTest {
+public class ImageTest {
 
     // Testing strategy
-    //   TODO
+    // constructor:
+    // getFilename:
+    // toString:
+    // equals:
+    //  partition on that not an instance of Image
+    //               that is instance of Image with different filename
+    //               that is instance of Image with same filename
+    // hashCode:
     
     @Test
     public void testAssertionsEnabled() {
@@ -31,6 +38,18 @@ public class ExpressionTest {
                 Parser.VERSION, startsWith("3.2"));
     }
     
-    //   TODO
-    
+    @Test
+    public void testImage() {
+        Image img = new Image("img/black.png");
+        Image img2 = new Image("img/white.png");
+        Image img3 = new Image("img/black.png");
+        assertEquals(img.getFilename(),"img/black.png");
+        assertEquals(img.toString(),"img/black.png");
+        assertEquals(img,img3);
+        assertEquals(img.equals(img2),false);
+        assertEquals(img.equals("img/black.png"),false);
+        String str = "img/black.png";
+        assertEquals(img.hashCode(),str.hashCode());
+    }
+        
 }

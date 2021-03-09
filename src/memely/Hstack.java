@@ -3,24 +3,46 @@ package memely;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 
+/**
+ * AF(left,right) = Expression stacking left and right side-by-side.
+ * RI: True
+ * Safety from rep exposure: all fields are private final immutable.
+ * 
+ * 
+ * @author lt
+ *
+ */
 public class Hstack implements Expression {
+    private final Expression left;
+    private final Expression right;
+    
+    public Hstack(Expression left, Expression right) {
+        this.left = left;
+        this.right = right;
+    }
+    
+    public Expression getRight() {
+        return right;
+    }
+    
+    public Expression getLeft() {
+        return left;
+    }
+    
     @Override
     public String toString() {
-        throw new RuntimeException("unimplemented");
+        return left.toString()+"|"+right.toString();
         }
 
     @Override
     public boolean equals(Object that){
-        throw new RuntimeException("unimplemented");
+        if (! (that instanceof Hstack)) return false;
+        return ((Hstack)that).left.equals(left) && ((Hstack)that).right.equals(right);
         }
     
     @Override
     public int hashCode(){
-        throw new RuntimeException("unimplemented");
-        }
-
-    public Dimension getSize(){
-        throw new RuntimeException("unimplemented");
+        return left.hashCode()+right.hashCode();
         }
 
     public int getWidth(){

@@ -21,7 +21,7 @@ public interface Expression {
     //   Expression = Image(filename:String)
     //                + Hstack(left:Expression, right:Expression)
     //                + Vstack(top:Expression, bottom:Expression)
-    //                + Resize(expr:Expression, size:Dimension)
+    //                + Resize(expr:Expression, w:int, h:int)
     //                + TopOverlay(expr:Expression, text:String)
     //                + BottomOverlay(expr:Expression, text:String)
     
@@ -62,11 +62,6 @@ public interface Expression {
     //
     // public Dimension getSize(); or public int getWidth()/getHeight();
     // public BufferedImage image(); 
-    
-    /** 
-     * @return the image size of the Expression
-     */
-    public Dimension getSize();
     
     /** 
      * @return the image width of the Expression, i.e. the number of pixels in the horizontal direction

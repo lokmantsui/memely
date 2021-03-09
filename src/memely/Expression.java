@@ -4,6 +4,7 @@
 package memely;
 
 import java.awt.image.BufferedImage;
+import edu.mit.eecs.parserlib.UnableToParseException;
 
 /**
  * An immutable data type representing an image expression, as defined
@@ -31,8 +32,12 @@ public interface Expression {
      * @return expression AST for the input
      * @throws IllegalArgumentException if the expression is syntactically invalid.
      */
-    public static Expression parse(String input) {
-        throw new RuntimeException("unimplemented");
+    public static Expression parse(String input){
+        try {
+            return ExpressionParser.parse(input);
+        } catch (UnableToParseException e) {
+            throw new RuntimeException("the expression has a syntax error", e);
+        }
     }
     
     /**

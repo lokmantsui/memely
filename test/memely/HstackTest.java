@@ -48,7 +48,7 @@ public class HstackTest {
         Hstack hs = new Hstack(img1,img2);
         assertEquals(hs.getRight(),img2);
         assertEquals(hs.getLeft(),img1);
-        assertEquals(hs.toString(),"img/black.png | img/white.png");
+        assertEquals(hs.toString(),"( img/black.png | img/white.png )");
         Hstack hs2 = new Hstack(img1,img2);
         Hstack hs3 = new Hstack(img2,img1);
         assertEquals(hs,hs2);

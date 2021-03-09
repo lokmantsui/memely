@@ -5,6 +5,7 @@ package memely;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import edu.mit.eecs.parserlib.ParseTree;
 import edu.mit.eecs.parserlib.Parser;
@@ -67,12 +68,12 @@ public class ExpressionParser {
         final ParseTree<ExpressionGrammar> parseTree = parser.parse(string);
 
         // display the parse tree in various ways, for debugging only
-        // System.out.println("parse tree " + parseTree);
-        // Visualizer.showInBrowser(parseTree);
+         System.out.println("parse tree " + parseTree);
+         Visualizer.showInBrowser(parseTree);
 
         // make an AST from the parse tree
         final Expression expression = makeAbstractSyntaxTree(parseTree);
-        // System.out.println("AST " + expression);
+         System.out.println("AST " + expression);
         
         return expression;
     }
@@ -87,26 +88,44 @@ public class ExpressionParser {
         switch (parseTree.name()) {
         case EXPRESSION: // expression ::= resize ('|' resize)*;
             {
-                // TODO
-                throw new RuntimeException("not implemented");
+                final List<ParseTree<ExpressionGrammar>> children = parseTree.children();
+                Expression expression = makeAbstractSyntaxTree(children.get(0));
+                for (int i = 1; i < children.size(); ++i) {
+                    expression = new Hstack(expression, makeAbstractSyntaxTree(children.get(i)));
+                }
+                return expression;
             }
 
         case RESIZE: // resize ::= primitive ('@' number 'x' number)*;
             {
-                // TODO
-                throw new RuntimeException("not implemented");
+                final List<ParseTree<ExpressionGrammar>> children = parseTree.children();
+                Expression expression = makeAbstractSyntaxTree(children.get(0));
+                for (int i = 1; i < children.size(); i+=2) {
+                    final int w = Integer.parseInt(children.get(i).text());
+                    final int h = Integer.parseInt(children.get(i+1).text());
+                    expression = new Resize(expression, w, h);
+                }
+                return expression;
             }
             
         case PRIMITIVE: // primitive ::= filename | '(' expression ')';
             {
-                // TODO
-                throw new RuntimeException("not implemented");
+                final ParseTree<ExpressionGrammar> child = parseTree.children().get(0);
+                // check which alternative (number or sum) was actually matched
+                switch (child.name()) {
+                case FILENAME:
+                    return makeAbstractSyntaxTree(child);
+                case EXPRESSION:
+                    return makeAbstractSyntaxTree(child); // in this case, we do the
+                                                          // same thing either way
+                default:
+                    throw new AssertionError("should never get here "+parseTree.text());
+                }
             }
             
         case FILENAME: // filename ::= [A-Za-z0-9./][A-Za-z0-9./_-]*;
             {
-                // TODO
-                throw new RuntimeException("not implemented");
+                return new Image(parseTree.text());
             }
             
         // ...
@@ -114,7 +133,7 @@ public class ExpressionParser {
         //
         
         default:
-            throw new AssertionError("should never get here");
+            throw new AssertionError("should never get here 2 "+parseTree.name());
         }
 
     }

@@ -33,15 +33,47 @@ public class ExpressionTest {
                 Parser.VERSION, startsWith("3.2"));
     }
     
-    // parse(): covered Image, Caption, Hstack, Resize
+    // parse(): covered Image
     @Test
-    public void testtoStringParse() {
+    public void testtoStringParseImage() {
         Image img1 = new Image("img/black.png");
-        Caption caption = new Caption("Hello there");
+        List<Expression> l = List.of(img1);
+        for (Expression e: l) {
+            assertEquals(e,Expression.parse(e.toString()),"invalid parse for"+e.toString());
+        }
+    }
+    
+    // parse(): covered Caption
+//    @Test
+//    public void testtoStringParseCaption() {
+//        Caption caption = new Caption("Hello there");
+//        List<Expression> l = List.of(caption);
+//        for (Expression e: l) {
+//            assertEquals(e,Expression.parse(e.toString()),"invalid parse for"+e.toString());
+//        }
+//    }
+//    
+    // parse(): covered Hstack
+    @Test
+    public void testtoStringParseHstack() {
+        Image img1 = new Image("img/black.png");
         Image img2 = new Image("img/white.png");
+        Image img3 = new Image("img/red.png");
         Hstack hs = new Hstack(img1,img2);
-        Resize rz = new Resize(hs,100,200);
-        List<Expression> l = List.of(img1,caption,hs,rz);
+        Hstack hs123 = new Hstack(hs,img3);
+        Hstack hs312 = new Hstack(img3, hs);
+        List<Expression> l = List.of(hs,hs123,hs312);
+        for (Expression e: l) {
+            assertEquals(e,Expression.parse(e.toString()),"invalid parse for"+e.toString());
+        }
+    }
+    
+    // parse(): covered Resize
+    @Test
+    public void testtoStringParseResize() {
+        Image img1 = new Image("img/black.png");
+        Resize rz = new Resize(img1,100,200);
+        List<Expression> l = List.of(rz);
         for (Expression e: l) {
             assertEquals(e,Expression.parse(e.toString()),"invalid parse for"+e.toString());
         }

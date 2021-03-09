@@ -29,11 +29,11 @@ public class Hstack implements Expression {
     }
     
     /**
-     * @return a string of the form "\<left in Strings\> | \<right in Strings\>"
+     * @return a string of the form "( \<left in Strings\> | \<right in Strings\> )"
      */
     @Override
     public String toString() {
-        return left.toString()+" | "+right.toString();
+        return "( "+left.toString()+" | "+right.toString()+" )";
         }
 
     @Override

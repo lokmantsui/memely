@@ -56,6 +56,7 @@ public class ResizeTest {
         Resize rz2 = new Resize(img2,100,200);
         Resize rz3 = new Resize(img2,200,100);
         assertEquals(rz,rz2);
+        assertEquals(rz.hashCode()==rz2.hashCode(),true);
         assertEquals(rz.equals(rz3),false);
         String str = "img/black.png";
         assertEquals(rz.hashCode(),str.hashCode()+Objects.hash(100,200));

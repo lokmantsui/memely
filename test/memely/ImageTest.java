@@ -46,6 +46,7 @@ public class ImageTest {
         assertEquals(img.getFilename(),"img/black.png");
         assertEquals(img.toString(),"img/black.png");
         assertEquals(img,img3);
+        assertEquals(img.hashCode()==img3.hashCode(),true);
         assertEquals(img.equals(img2),false);
         assertEquals(img.equals("img/black.png"),false);
         String str = "img/black.png";

@@ -1,6 +1,5 @@
 package memely;
 
-import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 
 /**
@@ -29,9 +28,12 @@ public class Hstack implements Expression {
         return left;
     }
     
+    /**
+     * @return a string of the form "\<left in Strings\> | \<right in Strings\>"
+     */
     @Override
     public String toString() {
-        return left.toString()+"|"+right.toString();
+        return left.toString()+" | "+right.toString();
         }
 
     @Override

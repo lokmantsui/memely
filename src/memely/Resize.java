@@ -1,6 +1,5 @@
 package memely;
 
-import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
@@ -32,6 +31,9 @@ public class Resize implements Expression {
         return expr;
     }
     
+    /**
+     * @return a string of the form "\<expr in Strings\> @ \<w\>x\<h\>"
+     */
     @Override
     public String toString() {
         return expr.toString()+" @ "+w+"x"+h;

@@ -2,47 +2,42 @@ package memely;
 
 import java.awt.image.BufferedImage;
 
-/**AF(filename) = image stored in filename
- * RI: filename consists of a-z, A-Z, 0-9, ., /, -, _ as long as they are not the first letter
+/**AF(str) = caption corresponding to str
+ * RI: str does not have newline or double quote
  * Safety from rep exposure:
  * all fields are private and immutable
  * 
  * @author lt
  *
  */
-public class Image implements Expression {
-    private final String filename; 
+public class Caption implements Expression {
+    private final String capt; 
     
-    public Image(String filename) {
-        this.filename = filename;
-        checkRep();
+    public Caption(String capt) {
+        this.capt = capt;
     }
     
     private void checkRep() {
-        assert filename.matches("[\\w-. /]*");
-        if (filename.length()>0) {
-            assert filename.charAt(0)!='-';
-            assert filename.charAt(0)!='_';
-        }
+        assert capt.matches("[^\"\\n]*");
     }
     
-    public String getFilename() {
-        return filename;
+    public String getCaption() {
+        return capt;
     }
     
     @Override
     public String toString() {
-        return filename;
+        return "\""+capt+"\"";
         }
 
     @Override
     public boolean equals(Object that){
-        return (that instanceof Image) && filename.equals(((Image)that).filename);
+        return (that instanceof Caption) && capt.equals(((Caption)that).getCaption());
         }
     
     @Override
     public int hashCode(){
-        return filename.hashCode();
+        return capt.hashCode();
         }
 
     public int getWidth(){

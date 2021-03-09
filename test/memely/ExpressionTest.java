@@ -17,7 +17,7 @@ import edu.mit.eecs.parserlib.Parser;
 public class ExpressionTest {
 
     // Testing strategy
-    //   TODO
+    // parse:
     
     @Test
     public void testAssertionsEnabled() {
@@ -31,6 +31,16 @@ public class ExpressionTest {
                 Parser.VERSION, startsWith("3.2"));
     }
     
-    //   TODO
+    // parse: covered
+    @Test
+    public void testtoStringParse() {
+        Expression img1 = new Image("img/black.png");
+        assertEquals(img1,Expression.parse(img1.toString()));
+        Expression img2 = new Image("img/white.png");
+        Hstack hs = new Hstack(img1,img2);
+        assertEquals(hs,Expression.parse(hs.toString()));
+        Resize rz = new Resize(hs,100,200);
+        assertEquals(rz,Expression.parse(rz.toString()));
+    }
     
 }

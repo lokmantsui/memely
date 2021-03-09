@@ -4,6 +4,8 @@
 package memely;
 
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.WritableRaster;
 import edu.mit.eecs.parserlib.UnableToParseException;
 
 /**
@@ -39,6 +41,13 @@ public interface Expression {
             throw new RuntimeException("the expression has a syntax error", e);
         }
     }
+    
+    public static BufferedImage deepCopy(BufferedImage bi) {
+        ColorModel cm = bi.getColorModel();
+        boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
+        WritableRaster raster = bi.copyData(null);
+        return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
+       }
     
     /**
      * @return a parsable representation of this expression, such that

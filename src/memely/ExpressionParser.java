@@ -68,12 +68,12 @@ public class ExpressionParser {
         final ParseTree<ExpressionGrammar> parseTree = parser.parse(string);
 
         // display the parse tree in various ways, for debugging only
-         System.out.println("parse tree " + parseTree);
-         Visualizer.showInBrowser(parseTree);
+//         System.out.println("parse tree " + parseTree);
+//         Visualizer.showInBrowser(parseTree);
 
         // make an AST from the parse tree
         final Expression expression = makeAbstractSyntaxTree(parseTree);
-         System.out.println("AST " + expression);
+//         System.out.println("AST " + expression);
         
         return expression;
     }

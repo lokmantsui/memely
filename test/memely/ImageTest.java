@@ -25,6 +25,8 @@ public class ImageTest {
     //               that is instance of Image with different filename
     //               that is instance of Image with same filename
     // hashCode():
+    // getWidth():
+    // getHeight():
     
     @Test
     public void testAssertionsEnabled() {
@@ -51,6 +53,8 @@ public class ImageTest {
         assertEquals(img.equals("img/black.png"),false);
         String str = "img/black.png";
         assertEquals(img.hashCode(),str.hashCode());
+        assertEquals(img.getHeight(),30);
+        assertEquals(img.getWidth(),30);
     }
         
 }

@@ -1,20 +1,34 @@
 package memely;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 /**AF(filename) = image stored in filename
  * RI: filename consists of a-z, A-Z, 0-9, ., /, -, _ as long as they are not the first letter
  * Safety from rep exposure:
- * all fields are private and immutable
+ * all fields are private and immutable except img, a defensive copy is returned by observer image().
  * 
  * @author lt
  *
  */
 public class Image implements Expression {
-    private final String filename; 
+    private final String filename;
+    private BufferedImage img;
+    private final int w;
+    private final int h;
     
     public Image(String filename) {
         this.filename = filename;
+        try {
+            img = ImageIO.read(new File(filename));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        w = img.getWidth();
+        h = img.getHeight();
         checkRep();
     }
     
@@ -42,14 +56,14 @@ public class Image implements Expression {
         }
 
     public int getWidth(){
-        throw new RuntimeException("unimplemented");
+        return w;
         }
 
     public int getHeight(){
-        throw new RuntimeException("unimplemented");
+        return h;
         }
 
     public BufferedImage image(){
-        throw new RuntimeException("unimplemented");
+        return Expression.deepCopy(img);
         }
 }

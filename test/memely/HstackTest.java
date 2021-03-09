@@ -26,6 +26,8 @@ public class HstackTest {
     //               that is instance of Hstack with different left or different right
     //               that is instance of Hstack with same left and same right
     // hashCode():
+    // getWidth():
+    //getHeight():
 
     
     @Test
@@ -55,6 +57,8 @@ public class HstackTest {
         assertEquals(hs.hashCode()==hs2.hashCode(),true);
         assertEquals(hs.equals(hs3),false);
         assertEquals(hs.hashCode(),img1.hashCode()+img2.hashCode());
+        assertEquals(hs.getHeight(),30);
+        assertEquals(hs.getWidth(),60);
     }
     
 }

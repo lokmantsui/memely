@@ -48,11 +48,11 @@ public class Hstack implements Expression {
         }
 
     public int getWidth(){
-        throw new RuntimeException("unimplemented");
+        return left.getWidth() + right.getWidth();
         }
 
     public int getHeight(){
-        throw new RuntimeException("unimplemented");
+        return Math.max(left.getHeight(), right.getHeight());
         }
 
     public BufferedImage image(){

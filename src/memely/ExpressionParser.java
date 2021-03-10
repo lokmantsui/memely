@@ -29,7 +29,7 @@ public class ExpressionParser {
     
     // the nonterminals of the grammar
     private static enum ExpressionGrammar {
-        EXPRESSION, RESIZE, PRIMITIVE, TOPTOBOTTOMOPERATOR, FILENAME, NUMBER, WHITESPACE,UNKNOWN
+        EXPRESSION, RESIZE, PRIMITIVE, TOPTOBOTTOMOPERATOR, FILENAME, NUMBER, WHITESPACE,UNKNOWN, TOPOVERLAY, CAPTION
     }
 
     private static Parser<ExpressionGrammar> parser = makeParser();
@@ -69,7 +69,7 @@ public class ExpressionParser {
 
         // display the parse tree in various ways, for debugging only
 //         System.out.println("parse tree " + parseTree);
-//         Visualizer.showInBrowser(parseTree);
+         Visualizer.showInBrowser(parseTree);
 
         // make an AST from the parse tree
         final Expression expression = makeAbstractSyntaxTree(parseTree);
@@ -86,7 +86,7 @@ public class ExpressionParser {
      */
     private static Expression makeAbstractSyntaxTree(final ParseTree<ExpressionGrammar> parseTree) {
         switch (parseTree.name()) {
-        case EXPRESSION: // expression ::= resize ('|' resize)*;
+        case EXPRESSION: // expression ::= topOverlay ('|' topOverlay)*;
             {
                 final List<ParseTree<ExpressionGrammar>> children = parseTree.children();
                 Expression expression = makeAbstractSyntaxTree(children.get(0));
@@ -95,8 +95,18 @@ public class ExpressionParser {
                 }
                 return expression;
             }
+            
+        case TOPOVERLAY: // topOverlay ::= resize ('^' resize)*;
+        {
+            final List<ParseTree<ExpressionGrammar>> children = parseTree.children();
+            Expression expression = makeAbstractSyntaxTree(children.get(0));
+            for (int i = 1; i < children.size(); ++i) {
+                expression = new TopOverlay(expression, makeAbstractSyntaxTree(children.get(i)));
+            }
+            return expression;
+        }
 
-        case RESIZE: // resize ::= primitive ('@' number 'x' number)*;
+        case RESIZE: // resize ::= primitive ('@' (number 'x' number | unknown 'x' number | number 'x' unknown) )*;
             {
                 final List<ParseTree<ExpressionGrammar>> children = parseTree.children();
                 Expression expression = makeAbstractSyntaxTree(children.get(0));
@@ -117,12 +127,14 @@ public class ExpressionParser {
                 return expression;
             }
             
-        case PRIMITIVE: // primitive ::= filename | '(' expression ')';
+        case PRIMITIVE: // primitive ::= filename | '"' caption '"' | '(' expression ')';
             {
                 final ParseTree<ExpressionGrammar> child = parseTree.children().get(0);
                 // check which alternative (number or sum) was actually matched
                 switch (child.name()) {
                 case FILENAME:
+                    return makeAbstractSyntaxTree(child);
+                case CAPTION:
                     return makeAbstractSyntaxTree(child);
                 case EXPRESSION:
                     return makeAbstractSyntaxTree(child); // in this case, we do the
@@ -136,6 +148,11 @@ public class ExpressionParser {
             {
                 return new Image(parseTree.text());
             }
+            
+        case CAPTION: // caption = [^\n"]+;
+        {
+            return new Caption(parseTree.text());
+        }
             
         // ...
         // TODO more rules

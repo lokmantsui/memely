@@ -23,6 +23,9 @@ public class TopOverlayTest {
     // toString():
     // equals():
     // hashCode():
+    // getWidth():
+    // getHeight():
+    // image():
 
     
     @Test
@@ -55,6 +58,20 @@ public class TopOverlayTest {
         assertEquals(to.hashCode(),img.hashCode()+cap.hashCode());
         assertEquals(to.getWidth(),Math.max(img.getWidth(), cap.getWidth()));
         assertEquals(to.getHeight(),Math.max(img.getHeight(), cap.getHeight()));
+    }
+    
+    @Test void testTopOverlayimage() {
+        Image black = new Image("img/black.png");
+        Image white = new Image("img/white.png");
+        Resize top = new Resize(black,50,10);
+        TopOverlay to = new TopOverlay(white, top);
+        assertEquals(to.getWidth(),50);
+        assertEquals(to.getHeight(),30);
+        BufferedImage bi = to.image();
+        final int abgrBlackPixel = 0xFF_00_00_00; // alpha=100%, blue=0%, green=0%, red=0%
+        final int abgrWhitePixel = 0xFF_FF_FF_FF; // alpha=100%, blue=100%, green=100%, red=100%
+        assertEquals(bi.getRGB(10, 5),abgrBlackPixel);
+        assertEquals(bi.getRGB(25, 15),abgrWhitePixel);
     }
     
 }

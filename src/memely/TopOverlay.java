@@ -13,8 +13,8 @@ import java.awt.image.ImageObserver;
  *
  */
 public class TopOverlay implements Expression {
-    private final Expression expr;
-    private final Expression top;
+    protected final Expression expr;
+    protected final Expression top;
     
     public TopOverlay(Expression expr, Expression top) {
         this.expr = expr;
@@ -67,7 +67,7 @@ public class TopOverlay implements Expression {
         final int TopHeight = top.getHeight();
         final int ExprUpperLeftX = Math.max(0, (TopWidth - ExprWidth)/2);
         final int ExprUpperLeftY = 0;
-        final int TopUpperLeftX = Math.max(0, (ExprWidth - TopWidth)/2);;
+        final int TopUpperLeftX = Math.max(0, (ExprWidth - TopWidth)/2);
         final int TopUpperLeftY = 0;
 
         

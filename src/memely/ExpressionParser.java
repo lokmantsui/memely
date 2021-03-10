@@ -29,7 +29,7 @@ public class ExpressionParser {
     
     // the nonterminals of the grammar
     private static enum ExpressionGrammar {
-        EXPRESSION, RESIZE, PRIMITIVE, TOPTOBOTTOMOPERATOR, FILENAME, NUMBER, WHITESPACE,
+        EXPRESSION, RESIZE, PRIMITIVE, TOPTOBOTTOMOPERATOR, FILENAME, NUMBER, WHITESPACE,UNKNOWN
     }
 
     private static Parser<ExpressionGrammar> parser = makeParser();
@@ -69,7 +69,7 @@ public class ExpressionParser {
 
         // display the parse tree in various ways, for debugging only
 //         System.out.println("parse tree " + parseTree);
-//         Visualizer.showInBrowser(parseTree);
+         Visualizer.showInBrowser(parseTree);
 
         // make an AST from the parse tree
         final Expression expression = makeAbstractSyntaxTree(parseTree);
@@ -101,9 +101,18 @@ public class ExpressionParser {
                 final List<ParseTree<ExpressionGrammar>> children = parseTree.children();
                 Expression expression = makeAbstractSyntaxTree(children.get(0));
                 for (int i = 1; i < children.size(); i+=2) {
-                    final int w = Integer.parseInt(children.get(i).text());
-                    final int h = Integer.parseInt(children.get(i+1).text());
-                    expression = new Resize(expression, w, h);
+                    if (children.get(i).name()==ExpressionGrammar.NUMBER &&children.get(i+1).name()==ExpressionGrammar.NUMBER) {
+                        final int w = Integer.parseInt(children.get(i).text());
+                        final int h = Integer.parseInt(children.get(i+1).text());
+                        expression = new Resize(expression, w, h);
+                    }else if (children.get(i).name()==ExpressionGrammar.UNKNOWN &&children.get(i+1).name()==ExpressionGrammar.NUMBER) {
+                        final int h = Integer.parseInt(children.get(i+1).text());
+                        expression = new Resize(expression, null, h);
+                    }else if (children.get(i).name()==ExpressionGrammar.NUMBER &&children.get(i+1).name()==ExpressionGrammar.UNKNOWN) {
+                        final int w = Integer.parseInt(children.get(i).text());
+                        expression = new Resize(expression, w, null);
+                    }else throw new AssertionError("should never get here");
+                    
                 }
                 return expression;
             }

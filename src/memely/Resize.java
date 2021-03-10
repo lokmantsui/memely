@@ -24,6 +24,20 @@ public class Resize implements Expression {
         checkRep();
     }
     
+    public Resize(Expression expr, Void v, int h) {
+        this.expr = expr;
+        this.w = expr.getWidth()*h/expr.getHeight();
+        this.h = h;
+        checkRep();
+    }
+    
+    public Resize(Expression expr, int w, Void v) {
+        this.expr = expr;
+        this.w = w;
+        this.h = expr.getHeight()*w/expr.getWidth();;
+        checkRep();
+    }
+    
     private void checkRep() {
         assert h>0 : "invalid height";
         assert w>0 : "invalid width";

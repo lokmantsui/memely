@@ -71,4 +71,15 @@ public class ResizeTest {
         assertEquals(bi.getHeight(),200);
     }
     
+    // Resize(Void v, int h): covered
+    // Resize(int w, Void v): covered
+    @Test
+    public void testResizeVoid() {
+        Image img = new Image("img/black.png");
+        Resize rz = new Resize(img,100,null);
+        assertEquals(rz.getHeight(),100);
+        Resize rz2 = new Resize(img,null,200);
+        assertEquals(rz2.getWidth(),200);
+    }
+    
 }

@@ -73,7 +73,9 @@ public class ExpressionTest {
     public void testtoStringParseResize() {
         Image img1 = new Image("img/black.png");
         Resize rz = new Resize(img1,100,200);
-        List<Expression> l = List.of(rz);
+        Resize rz2 = new Resize(img1,100,null);
+        Resize rz3 = new Resize(img1,null,200);
+        List<Expression> l = List.of(rz,rz2,rz3);
         for (Expression e: l) {
             assertEquals(e,Expression.parse(e.toString()),"invalid parse for"+e.toString());
         }

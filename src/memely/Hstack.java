@@ -1,6 +1,8 @@
 package memely;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 
 /**
  * AF(left,right) = Expression stacking left and right side-by-side.
@@ -56,6 +58,37 @@ public class Hstack implements Expression {
         }
 
     public BufferedImage image(){
-        throw new RuntimeException("unimplemented");
+        
+        final ImageObserver NO_OBSERVER_NEEDED = null;
+
+        final BufferedImage column1img = left.image();
+        final BufferedImage column2img = right.image();
+        final BufferedImage output = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
+        final Graphics graphics = output.getGraphics();
+        
+        final int upperLeftX = 0;
+        final int upperLeftY = 0;
+        final int widthLeft = left.getWidth();
+        final int widthRight = right.getWidth();
+        final int heightLeft = left.getHeight();
+        final int heightRight = right.getHeight();
+        final int column1UpperLeftX = 0;
+        final int column1UpperLeftY = Math.max(0, (heightRight-heightLeft)/2);
+        final int column1Width = widthLeft;
+        final int column1Height = heightLeft;
+        final int column2UpperLeftX = widthLeft;
+        final int column2UpperLeftY = Math.max(0, (heightLeft-heightRight)/2);
+        final int column2Width = widthRight;
+        final int column2Height = heightRight;
+        
+        graphics.drawImage(column1img, 
+                column1UpperLeftX, column1UpperLeftY,
+                column1Width, column1Height, 
+                           NO_OBSERVER_NEEDED);
+        graphics.drawImage(column2img, 
+                column2UpperLeftX, column2UpperLeftY,
+                column2Width, column2Height, 
+                           NO_OBSERVER_NEEDED);
+        return output;
         }
 }

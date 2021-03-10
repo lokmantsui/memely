@@ -6,6 +6,8 @@ package memely;
 import static org.hamcrest.CoreMatchers.startsWith;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.awt.image.BufferedImage;
 import java.util.Objects;
 
 import org.junit.jupiter.api.Test;
@@ -26,6 +28,7 @@ public class ResizeTest {
     // hashCode():
     // getWidth():
     // getHeight():
+    // image():
     
     @Test
     public void testAssertionsEnabled() {
@@ -39,13 +42,14 @@ public class ResizeTest {
                 Parser.VERSION, startsWith("3.2"));
     }
     
-    // constructor:
+    // Resize(): covered
     // getExpression(): covered
     // toString(): covered
     // equals(): covered that equals this, that not equals this
     // hashCode(): covered
     // getWidth(): covered
     // getHeight(): covered
+    // image(): covered
     @Test
     public void testResize() {
         Image img = new Image("img/black.png");
@@ -62,6 +66,9 @@ public class ResizeTest {
         assertEquals(rz.hashCode(),str.hashCode()+Objects.hash(100,200));
         assertEquals(rz.getWidth(),100);
         assertEquals(rz.getHeight(),200);
+        BufferedImage bi = rz.image();
+        assertEquals(bi.getWidth(),100);
+        assertEquals(bi.getHeight(),200);
     }
     
 }

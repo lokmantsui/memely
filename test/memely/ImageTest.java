@@ -3,6 +3,7 @@
  */
 package memely;
 
+import java.awt.image.BufferedImage;
 import static org.hamcrest.CoreMatchers.startsWith;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,6 +28,7 @@ public class ImageTest {
     // hashCode():
     // getWidth():
     // getHeight():
+    // image():
     
     @Test
     public void testAssertionsEnabled() {
@@ -40,6 +42,16 @@ public class ImageTest {
                 Parser.VERSION, startsWith("3.2"));
     }
     
+    // Image(): covered
+    // getFilename(): covered
+    // toString(): covered
+    // equals(): covered that not an instance of Image
+    //                   that is instance of Image with different filename
+    //                   that is instance of Image with same filename
+    // hashCode(): covered
+    // getWidth(): covered
+    // getHeight(): covered
+    // image(): covered
     @Test
     public void testImage() {
         Image img = new Image("img/black.png");
@@ -55,6 +67,11 @@ public class ImageTest {
         assertEquals(img.hashCode(),str.hashCode());
         assertEquals(img.getHeight(),30);
         assertEquals(img.getWidth(),30);
+        BufferedImage bi = img.image();
+        assertEquals(bi.getHeight(),30);
+        assertEquals(bi.getWidth(),30);
+        final int abgrBlackPixel = 0xFF_00_00_00; 
+        assertEquals(bi.getRGB(15, 15),abgrBlackPixel);
     }
         
 }

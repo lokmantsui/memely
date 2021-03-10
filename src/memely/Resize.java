@@ -1,6 +1,8 @@
 package memely;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 import java.util.Objects;
 
 /**
@@ -59,6 +61,21 @@ public class Resize implements Expression {
         }
 
     public BufferedImage image(){
-        throw new RuntimeException("unimplemented");
+        
+        final ImageObserver NO_OBSERVER_NEEDED = null;
+        
+        final int upperLeftX = 0;
+        final int upperLeftY = 0;
+
+        final BufferedImage input = expr.image();
+        final BufferedImage output = new BufferedImage(w, h, BufferedImage.TYPE_4BYTE_ABGR);
+        final Graphics graphics = output.getGraphics();
+        
+        graphics.drawImage(input, 
+                           upperLeftX, upperLeftY,
+                           w, h, 
+                           NO_OBSERVER_NEEDED);
+        return output;
         }
+    
 }

@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import edu.mit.eecs.parserlib.Parser;
-
+import java.awt.image.BufferedImage;
 /**
  * Tests for the Expression abstract data type.
  */
@@ -27,7 +27,8 @@ public class HstackTest {
     //               that is instance of Hstack with same left and same right
     // hashCode():
     // getWidth():
-    //getHeight():
+    // getHeight():
+    // image():
 
     
     @Test
@@ -59,6 +60,13 @@ public class HstackTest {
         assertEquals(hs.hashCode(),img1.hashCode()+img2.hashCode());
         assertEquals(hs.getHeight(),30);
         assertEquals(hs.getWidth(),60);
+        BufferedImage bi = hs.image();
+        assertEquals(bi.getHeight(),30);
+        assertEquals(bi.getWidth(),60);
+        final int abgrBlackPixel = 0xFF_00_00_00; // alpha=100%, blue=0%, green=0%, red=0%
+        final int abgrWhitePixel = 0xFF_FF_FF_FF; // alpha=100%, blue=100%, green=100%, red=100%
+        assertEquals(bi.getRGB(15, 15),abgrBlackPixel);
+        assertEquals(bi.getRGB(45, 15),abgrWhitePixel);
     }
     
 }

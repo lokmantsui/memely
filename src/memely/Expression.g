@@ -3,7 +3,8 @@
  */
 
 @skip whitespace {
-    expression ::= bottomOverlay ('|' bottomOverlay)*;
+    expression ::= hstack (topToBottomOperator hstack)*;
+    hstack ::= bottomOverlay ('|' bottomOverlay)*;
     bottomOverlay ::= topOverlay ('_' topOverlay)*;
     topOverlay ::= resize ('^' resize)*;
     resize ::= primitive ('@' (number 'x' number | unknown 'x' number | number 'x' unknown) )*;

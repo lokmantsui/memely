@@ -19,7 +19,7 @@ public class ExpressionTest {
 
     // Testing strategy
     // parse(): 
-    //   partition on Expression: Image, Caption, Hstack, Resize, TopOverlay, BottomOverlay
+    //   partition on Expression: Image, Caption, Hstack, Resize, TopOverlay, BottomOverlay, Vstack
     
     @Test
     public void testAssertionsEnabled() {
@@ -100,6 +100,22 @@ public class ExpressionTest {
         Image img = new Image("img/boromir.jpg");
         BottomOverlay bo = new BottomOverlay(img, cap);
         List<Expression> l = List.of(bo);
+        for (Expression e: l) {
+            assertEquals(e,Expression.parse(e.toString()),"invalid parse for"+e.toString());
+        }
+    }
+    
+    // parse(): covered Vstack
+    @Test
+    public void testtoStringParseVstack() {
+        Image img1 = new Image("img/black.png");
+        Image img2 = new Image("img/white.png");
+        Image img3 = new Image("img/red.png");
+        Vstack vs = new Vstack(img1,img2);
+        Vstack vs123 = new Vstack(vs,img3);
+        Vstack vs312 = new Vstack(img3, vs);
+//        List<Expression> l = List.of(vs,vs123,vs312);
+        List<Expression> l = List.of(vs123);
         for (Expression e: l) {
             assertEquals(e,Expression.parse(e.toString()),"invalid parse for"+e.toString());
         }

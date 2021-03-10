@@ -19,7 +19,7 @@ public class ExpressionTest {
 
     // Testing strategy
     // parse(): 
-    //   partition on Expression: Image, Caption, Hstack, Resize
+    //   partition on Expression: Image, Caption, Hstack, Resize, TopOverlay
     
     @Test
     public void testAssertionsEnabled() {
@@ -43,16 +43,16 @@ public class ExpressionTest {
         }
     }
     
-    // parse(): covered Caption
-//    @Test
-//    public void testtoStringParseCaption() {
-//        Caption caption = new Caption("Hello there");
-//        List<Expression> l = List.of(caption);
-//        for (Expression e: l) {
-//            assertEquals(e,Expression.parse(e.toString()),"invalid parse for"+e.toString());
-//        }
-//    }
-//    
+     //parse(): covered Caption
+    @Test
+    public void testtoStringParseCaption() {
+        Caption caption = new Caption("Hello there");
+        List<Expression> l = List.of(caption);
+        for (Expression e: l) {
+            assertEquals(e,Expression.parse(e.toString()),"invalid parse for"+e.toString());
+        }
+    }
+    
     // parse(): covered Hstack
     @Test
     public void testtoStringParseHstack() {
@@ -76,6 +76,18 @@ public class ExpressionTest {
         Resize rz2 = new Resize(img1,100,null);
         Resize rz3 = new Resize(img1,null,200);
         List<Expression> l = List.of(rz,rz2,rz3);
+        for (Expression e: l) {
+            assertEquals(e,Expression.parse(e.toString()),"invalid parse for"+e.toString());
+        }
+    }
+    
+    // parse(): covered TopOverlay
+    @Test
+    public void testtoStringParseTopOverlay() {
+        Caption cap = new Caption("One does not simply");
+        Image img = new Image("img/boromir.jpg");
+        TopOverlay to = new TopOverlay(img, cap);
+        List<Expression> l = List.of(to);
         for (Expression e: l) {
             assertEquals(e,Expression.parse(e.toString()),"invalid parse for"+e.toString());
         }

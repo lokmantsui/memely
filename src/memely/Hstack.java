@@ -41,7 +41,7 @@ public class Hstack implements Expression {
     @Override
     public boolean equals(Object that){
         if (! (that instanceof Hstack)) return false;
-        return ((Hstack)that).left.equals(left) && ((Hstack)that).right.equals(right);
+        return ((Hstack)that).getLeft().equals(left) && ((Hstack)that).getRight().equals(right);
         }
     
     @Override

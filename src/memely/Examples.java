@@ -201,7 +201,7 @@ public class Examples {
      * @return an image that renders the string as text using the default system font,
      *         cropped as tightly around the text as possible
      */
-    private static BufferedImage convertStringToImage(final String string) {
+    public static BufferedImage convertStringToImage(final String string) {
         // make a tiny 1x1 image at first so that we can get a Graphics object, 
         // which we need to compute the width and height of the text
         BufferedImage output = new BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR);

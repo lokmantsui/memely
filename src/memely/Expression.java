@@ -25,8 +25,8 @@ public interface Expression {
     //                + Hstack(left:Expression, right:Expression)
     //                + Vstack(top:Expression, bottom:Expression)
     //                + Resize(expr:Expression, w:int, h:int)
-    //                + TopOverlay(expr:Expression, text:String)
-    //                + BottomOverlay(expr:Expression, text:String)
+    //                + TopOverlay(expr:Expression)
+    //                + BottomOverlay(expr:Expression)
     
     /**
      * Parse an expression.

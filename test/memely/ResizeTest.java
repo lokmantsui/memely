@@ -13,7 +13,7 @@ import java.util.Objects;
 import org.junit.jupiter.api.Test;
 
 import edu.mit.eecs.parserlib.Parser;
-
+import edu.mit.eecs.parserlib.UnableToParseException;
 /**
  * Tests for the Expression abstract data type.
  */
@@ -80,6 +80,7 @@ public class ResizeTest {
         assertEquals(rz.getHeight(),100);
         Resize rz2 = new Resize(img,null,200);
         assertEquals(rz2.getWidth(),200);
+        assertThrows(UnableToParseException.class, ()->{ExpressionParser.parse("img/black.png @ ?x?"); } );
     }
     
 }

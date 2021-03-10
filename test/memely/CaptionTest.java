@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import edu.mit.eecs.parserlib.Parser;
-
+import java.awt.image.BufferedImage;
 /**
  * Tests for the Expression abstract data type.
  */
@@ -24,6 +24,9 @@ public class CaptionTest {
     //  partition on same Caption
     //               different Caption
     // hashCode():
+    // getWidth():
+    // getHeight():
+    // image():
     
     @Test
     public void testCaption() {
@@ -36,6 +39,9 @@ public class CaptionTest {
         Caption caption3 = new Caption("General Kenobi");
         assertEquals(caption.equals(caption3),false);
         assertEquals(caption.hashCode(),"Hello there".hashCode());
+        BufferedImage bi = Examples.convertStringToImage("Hello there");
+        assertEquals(caption.getHeight(),bi.getHeight());
+        assertEquals(caption.getWidth(),bi.getWidth());
     }
         
 }

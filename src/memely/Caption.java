@@ -5,16 +5,19 @@ import java.awt.image.BufferedImage;
 /**AF(str) = caption corresponding to str
  * RI: str does not have newline or double quote
  * Safety from rep exposure:
- * all fields are private and immutable
+ * all fields are private and immutable except img, so a defensive copy is returned in image().
  * 
  * @author lt
  *
  */
 public class Caption implements Expression {
-    private final String capt; 
+    private final String capt;
+    private final BufferedImage img;
     
     public Caption(String capt) {
         this.capt = capt;
+        img = Examples.convertStringToImage(capt);
+        checkRep();
     }
     
     private void checkRep() {
@@ -41,14 +44,14 @@ public class Caption implements Expression {
         }
 
     public int getWidth(){
-        throw new RuntimeException("unimplemented");
+        return img.getWidth();
         }
 
     public int getHeight(){
-        throw new RuntimeException("unimplemented");
+        return img.getHeight();
         }
 
     public BufferedImage image(){
-        throw new RuntimeException("unimplemented");
+        return Expression.deepCopy(img);
         }
 }

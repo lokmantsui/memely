@@ -3,7 +3,8 @@
  */
 
 @skip whitespace {
-    expression ::= topOverlay ('|' topOverlay)*;
+    expression ::= bottomOverlay ('|' bottomOverlay)*;
+    bottomOverlay ::= topOverlay ('_' topOverlay)*;
     topOverlay ::= resize ('^' resize)*;
     resize ::= primitive ('@' (number 'x' number | unknown 'x' number | number 'x' unknown) )*;
     primitive ::= filename | '"' caption '"' | '(' expression ')';

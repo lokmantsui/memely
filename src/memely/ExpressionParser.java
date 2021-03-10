@@ -29,7 +29,7 @@ public class ExpressionParser {
     
     // the nonterminals of the grammar
     private static enum ExpressionGrammar {
-        EXPRESSION, RESIZE, PRIMITIVE, TOPTOBOTTOMOPERATOR, FILENAME, NUMBER, WHITESPACE,UNKNOWN, TOPOVERLAY, CAPTION
+        EXPRESSION, RESIZE, PRIMITIVE, TOPTOBOTTOMOPERATOR, FILENAME, NUMBER, WHITESPACE,UNKNOWN, TOPOVERLAY, CAPTION, BOTTOMOVERLAY
     }
 
     private static Parser<ExpressionGrammar> parser = makeParser();
@@ -86,7 +86,7 @@ public class ExpressionParser {
      */
     private static Expression makeAbstractSyntaxTree(final ParseTree<ExpressionGrammar> parseTree) {
         switch (parseTree.name()) {
-        case EXPRESSION: // expression ::= topOverlay ('|' topOverlay)*;
+        case EXPRESSION: // expression ::= bottomOverlay ('|' bottomOverlay)*;
             {
                 final List<ParseTree<ExpressionGrammar>> children = parseTree.children();
                 Expression expression = makeAbstractSyntaxTree(children.get(0));
@@ -95,6 +95,16 @@ public class ExpressionParser {
                 }
                 return expression;
             }
+            
+        case BOTTOMOVERLAY: //     bottomOverlay ::= topOverlay ('_' topOverlay)*;
+        {
+            final List<ParseTree<ExpressionGrammar>> children = parseTree.children();
+            Expression expression = makeAbstractSyntaxTree(children.get(0));
+            for (int i = 1; i < children.size(); ++i) {
+                expression = new BottomOverlay(expression, makeAbstractSyntaxTree(children.get(i)));
+            }
+            return expression;
+        }
             
         case TOPOVERLAY: // topOverlay ::= resize ('^' resize)*;
         {

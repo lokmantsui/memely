@@ -52,7 +52,7 @@ public class TopOverlay implements Expression {
     public int getHeight(){
         return Math.max(expr.getHeight(), top.getHeight());
         }
-
+    
     public BufferedImage image(){
         final ImageObserver NO_OBSERVER_NEEDED = null;
 

@@ -53,6 +53,14 @@ public class TopOverlay implements Expression {
         return Math.max(expr.getHeight(), top.getHeight());
         }
     
+    protected int getExprY(int ExprHeight, int TopHeight) {
+        return 0;
+    }
+    
+    protected int getTopY(int ExprHeight, int TopHeight) {
+        return 0;
+    }
+    
     public BufferedImage image(){
         final ImageObserver NO_OBSERVER_NEEDED = null;
 
@@ -66,9 +74,9 @@ public class TopOverlay implements Expression {
         final int TopWidth = top.getWidth();
         final int TopHeight = top.getHeight();
         final int ExprUpperLeftX = Math.max(0, (TopWidth - ExprWidth)/2);
-        final int ExprUpperLeftY = 0;
+        final int ExprUpperLeftY = getExprY(ExprHeight,TopHeight);
         final int TopUpperLeftX = Math.max(0, (ExprWidth - TopWidth)/2);
-        final int TopUpperLeftY = 0;
+        final int TopUpperLeftY = getTopY(ExprHeight,TopHeight);
 
         
         graphics.drawImage(exprimg, 

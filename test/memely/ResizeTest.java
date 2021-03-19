@@ -76,9 +76,9 @@ public class ResizeTest {
     @Test
     public void testResizeVoid() {
         Image img = new Image("img/black.png");
-        Resize rz = new Resize(img,100,null);
+        Resize rz = Resize.ResizeRightUnknown(img,100);
         assertEquals(rz.getHeight(),100);
-        Resize rz2 = new Resize(img,null,200);
+        Resize rz2 = Resize.ResizeLeftUnknown(img,200);
         assertEquals(rz2.getWidth(),200);
         assertThrows(UnableToParseException.class, ()->{ExpressionParser.parse("img/black.png @ ?x?"); } );
     }

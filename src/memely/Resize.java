@@ -24,18 +24,14 @@ public class Resize implements Expression {
         checkRep();
     }
     
-    public Resize(Expression expr, Void v, int h) {
-        this.expr = expr;
-        this.w = expr.getWidth()*h/expr.getHeight();
-        this.h = h;
-        checkRep();
+    public static Resize ResizeLeftUnknown(Expression expr, int h) {
+        int w = expr.getWidth()*h/expr.getHeight();
+        return new Resize(expr, w, h);
     }
     
-    public Resize(Expression expr, int w, Void v) {
-        this.expr = expr;
-        this.w = w;
-        this.h = expr.getHeight()*w/expr.getWidth();;
-        checkRep();
+    public static Resize ResizeRightUnknown(Expression expr, int w) {
+        int h = expr.getHeight()*w/expr.getWidth();
+        return new Resize(expr, w, h);
     }
     
     private void checkRep() {

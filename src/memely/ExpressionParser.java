@@ -137,10 +137,10 @@ public class ExpressionParser {
                         expression = new Resize(expression, w, h);
                     }else if (children.get(i).name()==ExpressionGrammar.UNKNOWN &&children.get(i+1).name()==ExpressionGrammar.NUMBER) {
                         final int h = Integer.parseInt(children.get(i+1).text());
-                        expression = new Resize(expression, null, h);
+                        expression = Resize.ResizeLeftUnknown(expression, h);
                     }else if (children.get(i).name()==ExpressionGrammar.NUMBER &&children.get(i+1).name()==ExpressionGrammar.UNKNOWN) {
                         final int w = Integer.parseInt(children.get(i).text());
-                        expression = new Resize(expression, w, null);
+                        expression = Resize.ResizeRightUnknown(expression, w);
                     }else throw new AssertionError("should never get here");
                     
                 }
